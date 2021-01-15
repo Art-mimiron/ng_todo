@@ -1,0 +1,14 @@
+<div class="Todo_Form">
+    <input 
+    type="text" 
+    class="Todo_Input" 
+    placeholder="Type your todo here"
+    [(ngModel)]="title"
+    (keydown.enter)='addTodo()'>
+
+    <button 
+    class="Todo_Add"
+    (click)='addTodo()'>
+    Add Todo
+    </button>
+</div>

@@ -1,0 +1,43 @@
+<div class="Todo" *ngIf='!isLoading'>
+
+    <div class="Todo_Filter">
+        <input 
+        type="text"
+        class="Todo_Query"
+        placeholder="Search todo"
+        [(ngModel)]="searchQuery">
+    </div>
+
+    <ul class="Todo_List" *ngIf='todosService.todos.length; else noTodos'>
+        <li *ngFor="let todo of todosService.todos | todosFilter:searchQuery; let i = index" 
+        class="Todo_Item"
+        [class.Todo_Item-done]='todo.completed'>
+            <span class="Todo_Id">
+                №{{i + 1}}
+            </span>
+            <span class="Todo_Title">
+                {{ todo.title }}
+            </span>
+            <span class="Todo_Date">
+                {{ todo.date | date:'shortDate'}}
+            </span>
+    
+            <input type="checkbox" 
+            [checked]='todo.completed' 
+            class="Todo_Check"
+            (change)='toggleCompleted(todo.id)'>
+            
+            <button class="Todo_Remove"
+            (click)='removeTodo(todo.id)'>
+                X
+            </button>
+        </li>
+    </ul>
+    
+    <ng-template #noTodos>
+        No todos now
+    </ng-template>
+</div>
+<div class="Todo_Loading" *ngIf='isLoading'>
+    Loading...
+</div>
